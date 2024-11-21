@@ -42,6 +42,10 @@ const AddPatientPage = () => {
     setReportFile(null);
   };
 
+  const goBack = () => {
+    window.history.back();
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-white">
       <div className="bg-blue-600 text-white p-10 rounded-lg shadow-lg w-full max-w-lg">
@@ -98,7 +102,7 @@ const AddPatientPage = () => {
 
           <div>
             <h2 className="text-lg font-bold underline">
-              Patients Medical Information
+              Patient’s Medical Information
             </h2>
             <label className="block mt-2">Patient Comments:</label>
             <textarea
@@ -134,6 +138,12 @@ const AddPatientPage = () => {
             {successMessage}
           </p>
         )}
+        <button
+          onClick={goBack}
+          className="block w-full bg-gray-200 text-blue-600 py-2 px-4 mt-4 rounded-md shadow hover:bg-gray-300"
+        >
+          Back to Previous Page
+        </button>
       </div>
     </div>
   );

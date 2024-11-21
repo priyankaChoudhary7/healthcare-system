@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-const AddDoctor = ({ onBack }) => {
+const AddDoctor = () => {
   const [formData, setFormData] = useState({
     name: "",
     username: "",
@@ -35,6 +35,10 @@ const AddDoctor = ({ onBack }) => {
       contact: "",
       role: "",
     });
+  };
+
+  const goBack = () => {
+    window.history.back();
   };
 
   return (
@@ -143,9 +147,9 @@ const AddDoctor = ({ onBack }) => {
         </form>
         <button
           className="block w-full bg-gray-200 text-blue-600 px-4 py-2 mt-4 rounded-md shadow hover:bg-gray-300"
-          onClick={onBack}
+          onClick={goBack}
         >
-          Back
+          Back to Previous Page
         </button>
       </div>
     </div>
