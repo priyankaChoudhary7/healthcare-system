@@ -1,0 +1,12 @@
+{
+  "name": "pg",
+  "version": "1.0.0",
+  "description": "",
+  "author":"Akshay Bharadva",
+  "scripts": {
+    "docker": "docker-compose -f docker-compose.yml --env-file .env.docker-compose up",
+    "docker:cleanup": "docker-compose -f docker-compose.yml --env-file .env.docker-compose down"
+  },
+  "keywords": ["postgres", "docker", "pg", "docker-compose"],
+  "license": "ISC"
+}

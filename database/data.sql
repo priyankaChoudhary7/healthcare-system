@@ -34,7 +34,8 @@ CREATE TABLE patient_history (
     diagnosis TEXT,
     treatment TEXT,
     recorded_by INTEGER REFERENCES users(user_id),
-    recorded_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    recorded_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    report_id TEXT
 );
 
 -- Indexes for performance

@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from app.models.patient import Patient
+from app.models.patient_history import PatientHistory
 
 class PatientService:
     @staticmethod
@@ -18,4 +19,15 @@ class PatientService:
     def get_patients(db: Session, skip: int = 0, limit: int = 100):
         return db.query(Patient).offset(skip).limit(limit).all()
     
-    
+    @staticmethod
+    def create_patient_history(db: Session, history_data: dict, report_id: str):
+        history_data["report_id"] = report_id
+        db_history = PatientHistory(**history_data)
+        db.add(db_history)
+        db.commit()
+        db.refresh(db_history)
+        return db_history
+
+    @staticmethod
+    def get_patient_history(db: Session, patient_id: int):
+        return db.query(PatientHistory).filter(PatientHistory.patient_id == patient_id).all()
