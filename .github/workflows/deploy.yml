@@ -32,20 +32,24 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.AWS_KEY }}
         SOURCE: "."
         TARGET: "/var/www/myapp"
+        SCRIPT_AFTER: |
+          ls -alt /var/www/myapp
+          sudo touch /var/www/myapp/healtchcare-app.config
      
     - name: Install Backend Dependencies and Start Backend
-      uses: appleboy/ssh-action@v0.1.4
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.AWS_HOST }}
         username: ${{ secrets.AWS_USER }}
         key: ${{ secrets.AWS_KEY }}
+        debug: true
         script: |
           cd /var/www/myapp/backend
           python3 -m pip install -r requirements.txt
           nohup uvicorn main:app --host 0.0.0.0 --port 8000 &
 
     - name: Install Frontend Dependencies and Start Frontend
-      uses: appleboy/ssh-action@v0.1.4
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.AWS_HOST }}
         username: ${{ secrets.AWS_USER }}
@@ -57,10 +61,11 @@ jobs:
           nohup npm start &
 
     - name: Restart NGINX
-      uses: appleboy/ssh-action@v0.1.4
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.AWS_HOST }}
         username: ${{ secrets.AWS_USER }}
         key: ${{ secrets.AWS_KEY }}
         script: |
+          sudo cp /var/www/myapp/nginx-config /etc/nginx/sites-available/default  
           sudo systemctl restart nginx
