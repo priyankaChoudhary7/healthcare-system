@@ -35,7 +35,18 @@ jobs:
         SCRIPT_AFTER: |
           ls -alt /var/www/myapp
           sudo touch /var/www/myapp/healtchcare-app.config
-     
+
+    - name: Stop Backend (if running)
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.AWS_HOST }}
+        username: ${{ secrets.AWS_USER }}
+        key: ${{ secrets.AWS_KEY }}
+        debug: true
+        script: |
+          # Kill process running on port 8000 (if any)
+          sudo fuser -k 8000/tcp || true
+
     - name: Install Backend Dependencies and Start Backend
       uses: appleboy/ssh-action@master
       with:
@@ -45,6 +56,9 @@ jobs:
         debug: true
         script: |
           cd /var/www/myapp/backend
+          sudo apt update
+          sudo apt install python3-venv
+          sudo apt install postgresql libpq-dev
           python3 -m venv venv
           source venv/bin/activate
           export SECRET_KEY=${{ secrets.SECRET_KEY }}
@@ -53,7 +67,18 @@ jobs:
           export MONGO_DB_NAME=${{ secrets.MONGO_DB_NAME }}
           export ACCESS_TOKEN_EXPIRE_MINUTES=${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
           pip install -r requirements.txt
-          nohup venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000 &
+          nohup venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000 > backend.log 2>&1 &
+
+    - name: Stop Frontend (if running)
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.AWS_HOST }}
+        username: ${{ secrets.AWS_USER }}
+        key: ${{ secrets.AWS_KEY }}
+        debug: true
+        script: |
+          # Kill process running on port 3000 (if any)
+          sudo fuser -k 3000/tcp || true
 
     - name: Install Frontend Dependencies and Start Frontend
       uses: appleboy/ssh-action@master
@@ -65,7 +90,7 @@ jobs:
           cd /var/www/myapp/frontend
           npm install
           npm run build
-          nohup npm start &
+          nohup npm start > frontend.log 2>&1 &
 
     - name: Restart NGINX
       uses: appleboy/ssh-action@master
