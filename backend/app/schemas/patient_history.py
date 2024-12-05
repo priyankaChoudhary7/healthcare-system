@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Any
 
 class PatientHistoryCreate(BaseModel):
     patient_id: int
@@ -8,7 +8,8 @@ class PatientHistoryCreate(BaseModel):
     diagnosis: str
     treatment: str
     recorded_by: int
-    report_content: dict  # For storing the MongoDB report
+    report_title: str
+    report_content: str
 
 class PatientHistoryResponse(BaseModel):
     history_id: int
