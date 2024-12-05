@@ -34,6 +34,7 @@ jobs:
         TARGET: "/var/www/myapp"
         SCRIPT_AFTER: |
           ls -alt /var/www/myapp
+          sudo touch /var/www/myapp/healtchcare-app.config
      
     - name: Install Backend Dependencies and Start Backend
       uses: appleboy/ssh-action@v0.1.4
