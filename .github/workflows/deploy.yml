@@ -47,7 +47,11 @@ jobs:
           cd /var/www/myapp/backend
           python3 -m venv venv
           source venv/bin/activate
-          export $(grep -v '^#' /var/www/myapp/.env | xargs -d '\n')
+          export SECRET_KEY=${{ secrets.SECRET_KEY }}
+          export PG_DATABASE_URL=${{ secrets.PG_DATABASE_URL }}
+          export MONGO_URI=${{ secrets.MONGO_URI }}
+          export MONGO_DB_NAME=${{ secrets.MONGO_DB_NAME }}
+          export ACCESS_TOKEN_EXPIRE_MINUTES=${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
           pip install -r requirements.txt
           nohup venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000 &
 
