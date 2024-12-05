@@ -31,6 +31,8 @@ jobs:
         key: ${{ secrets.AWS_KEY }}
         source: "."
         target: "/var/www/myapp"
+        port: 22
+        debug: true
 
     - name: Install Backend Dependencies and Start Backend
       uses: appleboy/ssh-action@v0.1.4
