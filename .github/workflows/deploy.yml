@@ -32,6 +32,8 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.AWS_KEY }}
         SOURCE: "."
         TARGET: "/var/www/myapp"
+        SCRIPT_AFTER: |
+          ls -alt /var/www/myapp
      
     - name: Install Backend Dependencies and Start Backend
       uses: appleboy/ssh-action@v0.1.4
