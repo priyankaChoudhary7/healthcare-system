@@ -63,4 +63,5 @@ jobs:
         username: ${{ secrets.AWS_USER }}
         key: ${{ secrets.AWS_KEY }}
         script: |
+          sudo cp /var/www/myapp/nginx-config /etc/nginx/sites-available/default  
           sudo systemctl restart nginx
