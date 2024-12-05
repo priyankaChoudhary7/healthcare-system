@@ -33,6 +33,8 @@ jobs:
         target: "/var/www/myapp"
         port: 22
         debug: true
+        use_insecure_cipher: true
+
 
     - name: Install Backend Dependencies and Start Backend
       uses: appleboy/ssh-action@v0.1.4
