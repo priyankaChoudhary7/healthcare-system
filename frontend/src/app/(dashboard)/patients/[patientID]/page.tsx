@@ -20,14 +20,20 @@ export default function PatientHistoryPage() {
     medical_history: "",
     diagnosis: "",
     treatment: "",
-    recorded_by: 0,
+    recorded_by: "",
     report_title: "",
     report_content: "",
   });
 
   useEffect(() => {
-    setPatientID(parseInt(pid, 10));
+    if (typeof pid === "string") {
+      setPatientID(parseInt(pid, 10));
+    } else if (Array.isArray(pid)) {
+      // Handle the case where pid is an array (if applicable)
+      setPatientID(parseInt(pid[0], 10));
+    }
   }, [pid]);
+  
 
   if (isNaN(patientID)) {
     return <p>Invalid patient ID.</p>;
@@ -61,7 +67,7 @@ export default function PatientHistoryPage() {
         medical_history: "",
         diagnosis: "",
         treatment: "",
-        recorded_by: 0,
+        recorded_by: "",
         report_title: "",
         report_content: "",
       });
