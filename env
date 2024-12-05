@@ -1,6 +1,6 @@
-SECRET_KEY=your_super_secret_key
-# PG_DATABASE_URL=postgresql+psycopg2://postgres:postgres@localhost/postgres
-PG_DATABASE_URL=postgresql+psycopg2://postgres:postgres@localhost/public
+SECRET_KEY=THIS_IS_SECRET_KEY
+PG_DATABASE_URL=postgresql+psycopg2://postgres:postgres@db-healthcare.crkmg0usati7.us-east-2.rds.amazonaws.com/postgres
+# PG_DATABASE_URL=postgresql+psycopg2://postgres:postgres@localhost/public
 MONGO_URI=mongodb+srv://mongo:mongo@cluster0.0qmac.mongodb.net/
 MONGO_DB_NAME=patient-report
 ACCESS_TOKEN_EXPIRE_MINUTES=120
