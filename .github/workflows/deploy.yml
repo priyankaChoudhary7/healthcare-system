@@ -34,12 +34,12 @@ jobs:
         TARGET: "/var/www/myapp"
      
     - name: Install Backend Dependencies and Start Backend
-      uses: appleboy/ssh-action@v0.1.4
-      with:
-        host: ${{ secrets.AWS_HOST }}
-        username: ${{ secrets.AWS_USER }}
-        key: ${{ secrets.AWS_KEY }}
-        script: |
+      uses: easingthemes/ssh-deploy@v2.1.5
+      env:
+        REMOTE_HOST: ${{ secrets.AWS_HOST }}
+        REMOTE_USER: ${{ secrets.AWS_USER }}
+        SSH_PRIVATE_KEY: ${{ secrets.AWS_KEY }}
+        SCRIPT_AFTER: |
           cd /var/www/myapp/backend
           python3 -m pip install -r requirements.txt
           nohup uvicorn main:app --host 0.0.0.0 --port 8000 &
