@@ -88,6 +88,7 @@ jobs:
         key: ${{ secrets.AWS_KEY }}
         script: |
           cd /var/www/myapp/frontend
+          export NEXT_PUBLIC_API_HOST=${{ secrets.NEXT_PUBLIC_API_HOST }}
           npm install
           npm run build
           nohup npm start > frontend.log 2>&1 &

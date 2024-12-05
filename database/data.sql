@@ -42,3 +42,11 @@ CREATE TABLE patient_history (
 CREATE INDEX idx_patient_name ON patients(patient_name);
 CREATE INDEX idx_patient_email ON patients(patient_email);
 CREATE INDEX idx_history_patient ON patient_history(patient_id);
+
+
+INSERT INTO public.users(
+	user_id, full_name, username, password, email, contact_number, role)
+	VALUES (1, 'Priyanka Choudhary', 'pchoudhary', '$2b$12$k99btkwrd1g58TQIxvBio./LKhL9xeza9ewFb7Xglh9DFe.ie.QkO', 'pchoudhary@gmail.com'	,'1234567890',	'admin');
+
+-- username: pchoudhary
+-- password: Pixel@1932
